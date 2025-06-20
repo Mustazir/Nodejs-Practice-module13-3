@@ -38,9 +38,11 @@ const server = http.createServer((req, res) => {
         })
         res.end('Create Todos');
     }
+
+    // single todo
     else if (pathname === '/todo' && req.method === "GET") {
 
-        const title =url.searchParams.get('title');
+        const title = url.searchParams.get('title');
         console.log(title, 'title')
 
 
@@ -55,8 +57,30 @@ const server = http.createServer((req, res) => {
             return res.end(JSON.stringify({ message: "Todo not found" }));
         }
 
-        
+
         res.end('single todo');
+    }
+
+    // update todo
+    else if (pathname === "/todos/update-todos" && req.method === "PATCH") {
+
+        const title = url.searchParams.get('title');
+
+        let data = "";
+        req.on("data", (chunk) => {
+            data = data + chunk;
+        })
+        req.on("end", () => {
+            const {  body } = JSON.parse(data);
+
+            const allTodos = fs.readFileSync(filepath, { encoding: "utf-8" })
+            const parsedTodos = JSON.parse(allTodos);
+            const todoIndex=parsedTodos.findIndex((todo) => todo.title === title);
+            parsedTodos[todoIndex].body = body;
+            fs.writeFileSync(filepath, JSON.stringify(parsedTodos), { encoding: "utf-8" })
+            res.end(JSON.stringify({ title, body, createdAt:parsedTodos[todoIndex].createdAt }));
+        })
+        res.end('Update Todos');
     }
 
     else (
