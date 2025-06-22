@@ -14,9 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.todosRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
 const mongodb_1 = require("../config/mongodb");
-const filepath = path_1.default.join(__dirname, "../../../db/todo.json");
+const mongodb_2 = require("mongodb");
 // todos router creation
 exports.todosRouter = express_1.default.Router();
 // using the todos router for getting all todos
@@ -37,4 +36,33 @@ exports.todosRouter.post("/create-todos", (req, res) => __awaiter(void 0, void 0
     });
     const todos = yield collection.find().toArray();
     res.json(todos);
+}));
+exports.todosRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const db = yield mongodb_1.client.db("todosDB-Express");
+    const collection = yield db.collection("todos");
+    const todo = yield collection.findOne({ _id: new mongodb_2.ObjectId(id) });
+    res.json(todo);
+}));
+exports.todosRouter.delete("/delete-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const db = yield mongodb_1.client.db("todosDB-Express");
+    const collection = yield db.collection("todos");
+    yield collection.deleteOne({ _id: new mongodb_2.ObjectId(id) });
+    res.json({
+        message: "Todo deleted successfully",
+    });
+}));
+exports.todosRouter.put("/update-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title, description, completed } = req.body;
+    const id = req.params.id;
+    const db = yield mongodb_1.client.db("todosDB-Express");
+    const collection = yield db.collection("todos");
+    const filter = { _id: new mongodb_2.ObjectId(id) };
+    const updateTodo = yield collection.updateOne(filter, {
+        $set: {
+            title, description, completed
+        }
+    }, { upsert: true });
+    res.json(updateTodo);
 }));

@@ -2,8 +2,9 @@ import express, { Request, Response } from "express";
 import path from "path";
 import fs from "fs";
 import { client } from "../config/mongodb";
+import { ObjectId } from "mongodb";
 
-const filepath = path.join(__dirname, "../../../db/todo.json");
+
 
 // todos router creation
 export const todosRouter = express.Router();
@@ -30,4 +31,43 @@ todosRouter.post("/create-todos", async (req: Request, res: Response) => {
   const todos = await collection.find().toArray();
 
   res.json(todos);
+});
+
+todosRouter.get("/:id", async (req: Request, res: Response) => {
+  const id=req.params.id;
+  const db = await client.db("todosDB-Express");
+  const collection = await db.collection("todos");
+
+  const todo= await collection.findOne({_id: new ObjectId(id)});
+  
+
+  res.json(todo);
+});
+todosRouter.delete("/delete-todo/:id", async (req: Request, res: Response) => {
+  const id=req.params.id;
+  const db = await client.db("todosDB-Express");
+  const collection = await db.collection("todos");
+
+await collection.deleteOne({_id:new ObjectId(id)})
+  
+
+  res.json({
+    message: "Todo deleted successfully",
+  });
+});
+
+todosRouter.put("/update-todo/:id", async (req: Request, res: Response) => {
+  const { title, description, completed } = req.body;
+  const id = req.params.id;
+  const db = await client.db("todosDB-Express");
+  const collection = await db.collection("todos");
+  const filter = { _id: new ObjectId(id) };
+  const updateTodo= await collection.updateOne(filter,{
+    $set:{
+      title,description,completed
+    }
+  },{upsert:true});
+
+
+  res.json(updateTodo);
 });
