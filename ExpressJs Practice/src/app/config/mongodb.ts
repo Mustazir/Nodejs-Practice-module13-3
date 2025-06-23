@@ -1,10 +1,12 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
 
-const uri = "mongodb+srv://todosexpress:todosexpress@cluster0.w81iv.mongodb.net/todosDB?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI as string;
 export const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
