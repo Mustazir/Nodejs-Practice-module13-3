@@ -14,4 +14,15 @@ app.use("/todos", todos_router_1.todosRouter);
 app.get("/", (req, res) => {
     res.send("learning  World!");
 });
+// error handling for routes
+app.use((req, res) => {
+    res.status(404).send("Route not found");
+});
+// error handling for server global error
+app.use((error, req, res, next) => {
+    if (error) {
+        console.error("Error occurred:", error);
+        res.status(400).json("Internal Server Error");
+    }
+});
 exports.default = app;
