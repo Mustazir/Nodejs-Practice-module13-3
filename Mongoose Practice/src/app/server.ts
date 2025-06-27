@@ -1,6 +1,8 @@
 import { Server } from "http";
 import app from "./app";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
 let server: Server;
 
@@ -8,9 +10,9 @@ const port = 5000;
 
 async function main() {
   try {
-
+    const uri = process.env.MONGODB_URI as string;
     // Connect to MongoDB
-    // await mongoose.connect("mongodb+srv://todosexpress:todosexpress@cluster0.w81iv.mongodb.net/todosDB?retryWrites=true&w=majority&appName=Cluster0");
+    await mongoose.connect(uri);
     console.log("Connected to MongoDB");
     server = app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
