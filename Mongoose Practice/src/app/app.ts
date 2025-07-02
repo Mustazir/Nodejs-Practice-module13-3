@@ -37,7 +37,7 @@ app.post('/notes/create-note',async(req :Request, res: Response) => {
     // ---- Approach 2 ------
 
     const body = req.body;
-    const note=await Note.create(body);
+    const notes=await Note.create(body);
 
 
     
@@ -48,6 +48,21 @@ app.post('/notes/create-note',async(req :Request, res: Response) => {
     //     content:'learn express with typescript',
     // })
     // await myNote.save();
+
+    res.status(201).json({
+        message: 'Note created successfully',
+        notes
+    });
+
+
+})
+
+
+
+app.get('/notes/:noteId',async(req :Request, res: Response) => {
+    
+    const noteId = req.params.noteId;;
+    const note=await Note.findById(noteId);
 
     res.status(201).json({
         message: 'Note created successfully',
