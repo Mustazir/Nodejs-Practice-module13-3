@@ -13,7 +13,13 @@ const noteSchema = new Schema({
         type: String,
         enum: ['work', 'personal', 'other'], //enum used for this fixed values only
         default: 'other' //default value if no value is given
+
+    },
+    pinned:{
+        type: Boolean,
+        default: false 
     }
+
 })
 const Note=model('Note', noteSchema);
 
