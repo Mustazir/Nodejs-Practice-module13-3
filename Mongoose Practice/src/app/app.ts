@@ -74,8 +74,27 @@ app.patch('/notes/:noteID',async(req :Request, res: Response) => {
     const noteId = req.params.noteID;
     const note=await Note.findByIdAndUpdate(noteId,updateBody,{new:true}); // hre new:true will return the updated note imidiatly
 
+
+    // const note = await Note.updateOne({ _id: noteId}, updateBody, { new: true });  
+    // const note = await Note.findOneAndUpdate({ _id: noteId}, updateBody, { new: true });  
+    //--same another approach here we can update using title or some other field as well nut better the first approach
+
     res.status(201).json({
         note
+    });
+})
+app.delete('/notes/:noteID',async(req :Request, res: Response) => {
+   
+    const noteId = req.params.noteID;
+    const deletenote=await Note.findByIdAndDelete(noteId); 
+
+
+    // const note = await Note.delteOne({ _id: noteId});  
+    // const note = await Note.findOneAndDelete({ _id: noteId});  
+    //--same another approach here we can delete using title or some other field as well nut better the first approach
+
+    res.status(201).json({
+        deletenote
     });
 })
 
