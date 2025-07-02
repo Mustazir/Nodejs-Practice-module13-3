@@ -1,7 +1,8 @@
 import { model, Schema } from "mongoose";
+import { INote } from "../interfaces/notes.interface";
 
 // create note schema
-const noteSchema = new Schema({
+const noteSchema = new Schema<INote>({
   title: { type: String, required: true, trim: true }, //here required use if heres no title then give error and trim is used to remove extra white spaces.For example "   hello world   " will be converted to "hello world"
   content: { type: String, default: "" }, //default is used to give default value if no value is given then here it will blank
 
@@ -25,4 +26,4 @@ const noteSchema = new Schema({
     timestamps: true, //this will add createdAt and updatedAt fields to the schema
 });
 
-export const Note = model("Note", noteSchema); ///here Note is the name of the model and noteSchema is the schema we created above. This will create a collection called notes in the database.
+export const Note = model<INote>("Note", noteSchema); ///here Note is the name of the model and noteSchema is the schema we created above. This will create a collection called notes in the database.
