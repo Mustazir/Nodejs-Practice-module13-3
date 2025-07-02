@@ -6,8 +6,14 @@ const app :Application = express();
 
 
 const noteSchema = new Schema({
-    title: String,
-    content: String,
+    title: {type: String, required: true  , trim:true }, //here required use if heres no title then give error and trim is used to remove extra white spaces.For example "   hello world   " will be converted to "hello world"
+    content: {type : String, default: "" },  //default is used to give default value if no value is given then here it will blank
+
+    category :{
+        type: String,
+        enum: ['work', 'personal', 'other'], //enum used for this fixed values only
+        default: 'other' //default value if no value is given
+    }
 })
 const Note=model('Note', noteSchema);
 
