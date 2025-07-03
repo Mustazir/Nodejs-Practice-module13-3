@@ -6,12 +6,18 @@ const userSchema = new Schema<IUser>({
     firstName:{
         type: String,
         required: true,
-        trim: true 
+        trim: true,
+        minlength: [4,'First name must be at least 4 characters long {VALUE}'],
     },
     lastName:{
         type: String,
         required: true,
         trim: true 
+    },
+    age:{
+        type:Number,
+        required: true,
+        min: [18, 'Age must be at least 18 years {VALUE}'],
     },
     password:{
         type: String,
@@ -22,12 +28,14 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true,
         unique: true, //this will make sure that email is unique
-        trim: true 
+        trim: true ,
+        lowercase: true, //this will make sure that email is always in lowercase
     },
     role:{
         type: String,
         enum: ['user', 'admin'], //this will make sure that role is either user or admin
-        default: 'user' //default role is user
+        default: 'user', //default role is user,
+        lowercase: true, //this will make sure that role is always in lowercase
     }
 },{
     versionKey: false, //this will remove __v field from the schema
