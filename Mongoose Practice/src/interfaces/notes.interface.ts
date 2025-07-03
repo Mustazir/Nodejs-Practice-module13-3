@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface INote {
     title: string;
     content?: string; // optional field
@@ -7,4 +9,5 @@ export interface INote {
         label: string;
         color?: string; // optional field, default is blue
     };
+    user : Types.ObjectId;
 }

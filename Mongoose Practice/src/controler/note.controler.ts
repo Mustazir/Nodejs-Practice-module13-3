@@ -38,7 +38,7 @@ noteRoutes.get("/:noteId", async (req: Request, res: Response) => {
 // Get all notes
 noteRoutes.get("/", async (req: Request, res: Response) => {
   const body = req.body;
-  const note = await Note.find();
+  const note = await Note.find().populate("user"); // this will populate the user field with the user data
 
   res.status(201).json({
     note,

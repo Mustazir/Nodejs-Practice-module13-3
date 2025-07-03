@@ -75,7 +75,8 @@ const userSchema = new Schema<IUser>(
     },
     address:{
       type : addressSchema,
-    }
+    },
+    
   },
   {
     versionKey: false, //this will remove __v field from the schema
