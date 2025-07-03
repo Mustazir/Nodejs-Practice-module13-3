@@ -26,6 +26,12 @@ const userSchema = new Schema<IUser>({
     },
     email:{
         type: String,
+        validate:{
+            validator: function(value){
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); //this will check if the email is valid or not
+            },
+            message: '{VALUE} is not a valid email address', //this will show the error message if email is not valid
+        },
         required: true,
         unique: true, //this will make sure that email is unique
         trim: true ,
@@ -33,7 +39,10 @@ const userSchema = new Schema<IUser>({
     },
     role:{
         type: String,
-        enum: ['user', 'admin'], //this will make sure that role is either user or admin
+        enum: {
+            values:['user', 'admin'], //this will make sure that role is either user or admin
+            message: '{VALUE} is not a valid role, must be either user or admin', //this will show the error message if role is not user or admin
+        },
         default: 'user', //default role is user,
         lowercase: true, //this will make sure that role is always in lowercase
     }
