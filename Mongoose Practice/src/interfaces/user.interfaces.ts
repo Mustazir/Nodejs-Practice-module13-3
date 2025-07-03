@@ -1,3 +1,13 @@
+// sub schema for address
+
+export interface IAddress{
+    street: string;
+    city: string;
+    
+    zipCode: number;
+}
+
+
 export interface IUser{
     firstName: string;
     lastName: string;
@@ -5,4 +15,5 @@ export interface IUser{
     password: string;
     email: string;
     role: 'user' | 'admin'; // 'user' or 'admin'
+    address: IAddress;
 }

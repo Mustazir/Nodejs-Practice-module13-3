@@ -22,7 +22,10 @@ userRoutes.post("/create-user", async (req: Request, res: Response) => {
  
  try {
    
-  const body = await zodUserSchema.parseAsync(req.body);
+  // const zodbody = await zodUserSchema.parseAsync(req.body);  //-- its use for zod validation
+
+
+  const body = req.body;
 
   console.log("zod",body);
   const users = await User.create(body);
@@ -30,7 +33,7 @@ userRoutes.post("/create-user", async (req: Request, res: Response) => {
 
   res.status(201).json({
     message: "user created successfully",
-    users:{},
+    users,
   });
  } catch (error) {
     res.status(400).json({

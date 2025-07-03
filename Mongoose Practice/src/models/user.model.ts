@@ -1,6 +1,24 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "../interfaces/user.interfaces";
+import { IAddress, IUser } from "../interfaces/user.interfaces";
 import validator from "validator";
+
+// sub schema for address 
+const addressSchema = new Schema<IAddress>(
+  {
+    street:{
+      type:String,
+    },
+    city:{
+      type:String,
+    },
+
+    zipCode:{
+      type:Number,
+    },
+  },{
+    _id: false, //this will remove _id field from the address schema
+  }
+)
 
 const userSchema = new Schema<IUser>(
   {
@@ -55,6 +73,9 @@ const userSchema = new Schema<IUser>(
       default: "user", //default role is user,
       lowercase: true, //this will make sure that role is always in lowercase
     },
+    address:{
+      type : addressSchema,
+    }
   },
   {
     versionKey: false, //this will remove __v field from the schema
