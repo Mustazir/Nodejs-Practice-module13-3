@@ -1,29 +1,44 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user.model";
 
+import z from "zod";
+
 export const userRoutes= express.Router();
+
+const zodUserSchema = z.object({
+  firstName:z.string(),
+  lastName: z.string(),
+  age:z.number(),
+  password:z.string(),
+  email:z.string(),
+  role:z.string().optional()
+})
 
 
 // in app.ts file this app.use(" ",userRoutes) use for the /note route
 
 // Create a new note
 userRoutes.post("/create-user", async (req: Request, res: Response) => {
-  // ---- userRoutesroach 2 ------
-  const body = req.body;
+ 
+ try {
+   
+  const body = await zodUserSchema.parseAsync(req.body);
+
+  console.log("zod",body);
   const users = await User.create(body);
 
-  // ---- userRoutesroach 1------
-
-  // const myNote=new Note({
-  //     title:'learn express',
-  //     content:'learn express with typescript',
-  // })
-  // await myUser.save();
 
   res.status(201).json({
     message: "user created successfully",
-    users,
+    users:{},
   });
+ } catch (error) {
+    res.status(400).json({
+    message: error.message,
+    error,
+  });
+  console.log(error);
+ }
 });
 // Get a single note by ID
 userRoutes.get("/:userId", async (req: Request, res: Response) => {
