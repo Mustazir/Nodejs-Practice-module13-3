@@ -17,3 +17,7 @@ export interface IUser{
     role: 'user' | 'admin'; // 'user' or 'admin'
     address: IAddress;
 }
+
+export interface UserInstanceMethod{
+    hasPassword(password:string): string;
+}

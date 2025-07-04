@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { User } from "../models/user.model";
 
 import z from "zod";
-
+import bcrypt from "bcryptjs";
 export const userRoutes= express.Router();
 
 const zodUserSchema = z.object({
@@ -27,13 +27,25 @@ userRoutes.post("/create-user", async (req: Request, res: Response) => {
 
   const body = req.body;
 
-  console.log("zod",body);
-  const users = await User.create(body);
+  // const password = await bcrypt.hash(body.password, 10); //here 10 is the salt rounds, it will hash the password with 10 rounds of salt
+  // body.password = password; //here we are replacing the password with the hashed password
+  
 
+  // console.log("zod",body);
+  // const users = await User.create(body);
+
+  const user =new User(body)
+
+  const password =await user.hasPassword(body.password); //here we are hashing the password using the instance method hasPassword
+  user.password=password;
+
+
+  
+  await user.save(); //here we are saving the user to the database
 
   res.status(201).json({
     message: "user created successfully",
-    users,
+    user,
   });
  } catch (error) {
     res.status(400).json({

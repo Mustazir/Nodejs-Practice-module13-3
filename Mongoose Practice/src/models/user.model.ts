@@ -1,9 +1,11 @@
-import { model, Schema } from "mongoose";
-import { IAddress, IUser } from "../interfaces/user.interfaces";
+import { Model, model, Schema } from "mongoose";
+import { IAddress, IUser, UserInstanceMethod, } from "../interfaces/user.interfaces";
 import validator from "validator";
+import bcrypt from "bcryptjs"; 
+
 
 // sub schema for address 
-const addressSchema = new Schema<IAddress>(
+const addressSchema = new Schema<IAddress> (
   {
     street:{
       type:String,
@@ -20,7 +22,7 @@ const addressSchema = new Schema<IAddress>(
   }
 )
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser , Model<IUser>,UserInstanceMethod  > (
   {
     firstName: {
       type: String,
@@ -83,5 +85,10 @@ const userSchema = new Schema<IUser>(
     timestamps: true, //this will add createdAt and updatedAt fields to the schema
   }
 );
+userSchema.method("hasPassword", async function (plainPassword: string){
+  const password = await bcrypt.hash(plainPassword, 10); //here 10 is the salt rounds, it will hash the password with 10 rounds of salt
+  console.log("password", password);
+  return password
+});
 
-export const User = model<IUser>("User", userSchema); //here User is the name of the model and userSchema is the schema we created above. This will create a collection called users in the database.
+export const User = model("User", userSchema); //here User is the name of the model and userSchema is the schema we created above. This will create a collection called users in the database.
