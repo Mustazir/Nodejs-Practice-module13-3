@@ -13,13 +13,18 @@ noteRoutes.post("/create-note", async (req: Request, res: Response) => {
   const body = req.body;
   const notes = await Note.create(body);
 
-  // ---- noteRoutesroach 1------
 
-  // const myNote=new Note({
-  //     title:'learn express',
-  //     content:'learn express with typescript',
-  // })
-  // await myNote.save();
+  /*
+  ---- noteRoutesroach 1------
+
+  const myNote=new Note({
+  title:'learn express',
+  content:'learn express with typescript',
+  })
+  await myNote.save();
+
+ */
+
 
   res.status(201).json({
     message: "Note created successfully",
@@ -51,10 +56,15 @@ noteRoutes.patch("/:noteID", async (req: Request, res: Response) => {
   const noteId = req.params.noteID;
   const note = await Note.findByIdAndUpdate(noteId, updateBody, { new: true }); // hre new:true will return the updated note imidiatly
 
-  // const note = await Note.updateOne({ _id: noteId}, updateBody, { new: true });
-  // const note = await Note.findOneAndUpdate({ _id: noteId}, updateBody, { new: true });
-  //--same another noteRoutesroach here we can update using title or some other field as well nut better the first noteRoutesroach
+  /*
+  -----same another noteRoutesroach here we can update using title or some other field as well nut better the first noteRoutesroach----
 
+  const note = await Note.updateOne({ _id: noteId}, updateBody, { new: true });
+  const note = await Note.findOneAndUpdate({ _id: noteId}, updateBody, { new: true });
+  
+
+  */
+  
   res.status(201).json({
     note,
   });
@@ -63,9 +73,15 @@ noteRoutes.delete("/:noteID", async (req: Request, res: Response) => {
   const noteId = req.params.noteID;
   const deletenote = await Note.findByIdAndDelete(noteId);
 
-  // const note = await Note.delteOne({ _id: noteId});
-  // const note = await Note.findOneAndDelete({ _id: noteId});
-  //--same another noteRoutesroach here we can delete using title or some other field as well nut better the first noteRoutesroach
+
+  /*
+  ----same another noteRoutesroach here we can delete using title or some other field as well nut better the first noteRoutesroach----
+
+  const note = await Note.delteOne({ _id: noteId});
+  const note = await Note.findOneAndDelete({ _id: noteId});
+
+  */
+  
 
   res.status(201).json({
     deletenote,

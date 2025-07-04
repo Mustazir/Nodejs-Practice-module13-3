@@ -1,5 +1,7 @@
 // sub schema for address
 
+import { Model } from "mongoose";
+
 export interface IAddress{
     street: string;
     city: string;
@@ -18,6 +20,15 @@ export interface IUser{
     address: IAddress;
 }
 
+
+// ----its for Custom Instance Method----
 export interface UserInstanceMethod{
+    hasPassword(password:string): string;
+}
+
+
+
+// ----its for Custom Static Method----
+export interface UserStaticMethod extends Model<IUser> {
     hasPassword(password:string): string;
 }

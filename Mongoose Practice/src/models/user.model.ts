@@ -1,5 +1,5 @@
 import { Model, model, Schema } from "mongoose";
-import { IAddress, IUser, UserInstanceMethod, } from "../interfaces/user.interfaces";
+import { IAddress, IUser, UserInstanceMethod, UserStaticMethod, } from "../interfaces/user.interfaces";
 import validator from "validator";
 import bcrypt from "bcryptjs"; 
 
@@ -22,7 +22,7 @@ const addressSchema = new Schema<IAddress> (
   }
 )
 
-const userSchema = new Schema<IUser , Model<IUser>,UserInstanceMethod  > (
+const userSchema = new Schema<IUser ,UserStaticMethod,UserInstanceMethod  > ( // its the stracture for create custom Instance Method -----  ====> new Schema<IUser , Model<IUser>,UserInstanceMethod  <== & its for create custom Static Method ----- ===> new Schema<IUser ,UserStaticMethod,UserInstanceMethod <====
   {
     firstName: {
       type: String,
@@ -51,9 +51,10 @@ const userSchema = new Schema<IUser , Model<IUser>,UserInstanceMethod  > (
 
     validate:[validator.isEmail,`{VALUE} is not valid email` ],
 
-      // Custom validation for email
+    /*
+      ----Custom validation for email----
 
-      /*  validate:{
+        validate:{
             validator: function(value){
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); //this will check if the email is valid or not
             },
@@ -85,10 +86,46 @@ const userSchema = new Schema<IUser , Model<IUser>,UserInstanceMethod  > (
     timestamps: true, //this will add createdAt and updatedAt fields to the schema
   }
 );
+
+
+// ---- it use when we use Instance Method ----
 userSchema.method("hasPassword", async function (plainPassword: string){
   const password = await bcrypt.hash(plainPassword, 10); //here 10 is the salt rounds, it will hash the password with 10 rounds of salt
   console.log("password", password);
   return password
 });
 
-export const User = model("User", userSchema); //here User is the name of the model and userSchema is the schema we created above. This will create a collection called users in the database.
+
+// ---- it use when we use Static Method ----
+
+userSchema.static("hasPassword", async function (plainPassword: string){
+  const password = await bcrypt.hash(plainPassword, 10); //here 10 is the salt rounds, it will hash the password with 10 rounds of salt
+  console.log("static password", password);
+  return password
+});
+
+// -----Pre Save Hook----
+
+
+userSchema.pre("save",async function(){
+  this.password= await bcrypt.hash(this.password, 10); //when we use it no need the static or instance method
+})
+
+// ----Post Save Hook----
+
+userSchema.post("save",async function(docs){
+  console.log(`${docs.email} has been saved successfully`);
+
+})
+
+
+/*
+    -----when use just INstance Method-----
+
+export const User = model("User", userSchema);
+
+*/
+
+
+// -----when use just Static Method-----
+export const User = model<IUser,UserStaticMethod>("User", userSchema); //here User is the name of the model and userSchema is the schema we created above. This will create a collection called users in the database.
