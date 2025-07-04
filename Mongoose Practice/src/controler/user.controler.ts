@@ -85,7 +85,25 @@ userRoutes.get("/:userId", async (req: Request, res: Response) => {
 // Get all users
 userRoutes.get("/", async (req: Request, res: Response) => {
   const body = req.body;
-  const user = await User.find();
+  // const user = await User.find();  //we use this for find all user normanny
+
+
+
+  //it use for filtering 
+  const userEmail=req.query.email; //its use to get email from user for filtering
+  // const user = await User.find({email: userEmail}) //filtering using email
+
+
+  // const user = await User.find().sort({"email":"ascending"}) //sorting using email
+
+
+  // const user = await User.find().skip(10) //skiping using  -- here hide the first 10 user
+  
+  
+  const user = await User.find().limit(10) //Limit -- here show the first 10 user
+
+
+
 
   res.status(201).json({
     massage: "All users fetched successfully",
@@ -113,7 +131,11 @@ userRoutes.patch("/:userId", async (req: Request, res: Response) => {
 });
 userRoutes.delete("/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
-  const deleteuser = await User.findByIdAndDelete(userId);
+
+  // const deleteuser = await User.findByIdAndDelete(userId);   ----its use normally delete the user by id
+
+  const deleteuser = await User.findOneAndDelete({_id:userId});   //its delete user for post hook in custom middle wire  its also delete the notes of that user
+
 
   /*
   -----same another userRoutesroach here we can delete using title or some other field as well nut better the first userRoutesroach----

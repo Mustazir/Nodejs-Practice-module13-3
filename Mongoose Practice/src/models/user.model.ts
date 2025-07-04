@@ -2,6 +2,7 @@ import { Model, model, Schema } from "mongoose";
 import { IAddress, IUser, UserInstanceMethod, UserStaticMethod, } from "../interfaces/user.interfaces";
 import validator from "validator";
 import bcrypt from "bcryptjs"; 
+import { Note } from "./note.model";
 
 
 // sub schema for address 
@@ -104,19 +105,31 @@ userSchema.static("hasPassword", async function (plainPassword: string){
   return password
 });
 
-// -----Pre Save Hook----
+// -----Pre Save Hook(document Middle Wire)----
 
 
-userSchema.pre("save",async function(){
+userSchema.pre("save",async function(next){
   this.password= await bcrypt.hash(this.password, 10); //when we use it no need the static or instance method
+  next(); 
 })
 
-// ----Post Save Hook----
+// ----Post Save Hook(document Middle Wire)----
 
-userSchema.post("save",async function(docs){
+userSchema.post("save",async function(docs,next){
   console.log(`${docs.email} has been saved successfully`);
-
+  next();
 })
+//  -----Post Hook(Query Middle Wire)-----
+
+userSchema.post("findOneAndDelete",async function(doc,next){
+
+  if(doc){
+      await Note.deleteMany({user:doc._id})
+  }
+  next();
+})
+
+
 
 
 /*
