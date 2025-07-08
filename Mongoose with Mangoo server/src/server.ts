@@ -1,21 +1,25 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import config from './config';
+import userRoute from './modules/users/user.rotes';
 
 const app=express()
 app.use(cors());
 app.use(express.json());
 
-app.listen(5000, () => {
+app.use(userRoute)
 
-    console.log('Server is running on port 5000');
+app.listen(config.port, () => {
+
+    console.log(`Server is running on port ${config.port} `);
 })
 
 
 async function server(){
 try {
 
-     await mongoose.connect();
+     await mongoose.connect(config.database_url!);
 
      console.log('Connected to MongoDB');
 
