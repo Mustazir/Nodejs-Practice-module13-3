@@ -18,3 +18,14 @@ export const registerUser =async(req:Request,res:Response)=>{
         data
     })
 }
+export const getUser =async(req:Request,res:Response)=>{
+
+
+  const data = await User.find({});
+
+    res.send({
+        success:true,
+        message:"User registered successfully",
+        data
+    })
+}
