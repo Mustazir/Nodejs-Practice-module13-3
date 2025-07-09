@@ -14,3 +14,13 @@ export const createMango =async (req:Request,res:Response)=>{
         data
     })
 }
+
+export const getAllMango =async (req:Request,res:Response)=>{
+
+    const mango= await Mango.find()
+        res.send({
+        success:true,
+        message:"Mango Create successfully",
+        data:mango
+    })
+}
