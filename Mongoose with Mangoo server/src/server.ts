@@ -2,13 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import config from './config';
-import userRoute from './modules/users/user.rotes';
+import userRoute from './modules/users/user.routes';
+import mangoRoute from './modules/mango/mango.route';
+import routes from './modules/routes';
 
 const app=express()
 app.use(cors());
 app.use(express.json());
 
-app.use(userRoute)
+app.use(routes)
+
 
 app.listen(config.port, () => {
 
