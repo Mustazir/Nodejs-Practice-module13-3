@@ -1,5 +1,5 @@
 // its for mutation
-
+/*
 const employee ={
 name :"AbortController",
 address:{
@@ -11,4 +11,21 @@ employee2.name="employee"
 
 console.log(employee)
 console.log(employee2)
+*/
 
+// immutation
+
+
+const employee ={
+name :"AbortController",
+address:{
+    country:"Bangladsh",city:"dhaka"
+}
+}
+const employee2 = {
+  ...employee,
+  name: "employee",
+};  
+
+console.log(employee)
+console.log(employee2)
