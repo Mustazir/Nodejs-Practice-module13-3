@@ -46,3 +46,16 @@ console.log(add(1, 2));
 const addd=(a)=>(b)=>a+b
 console.log(addd(1)(2))
 
+
+// here a example for discount a price, if we use normal function we need to mention the discount value everytime ,but using curriing function just need the discount value once
+
+
+const totalPrice = (discount)=>(ammount)=>ammount-ammount*discount
+
+const withDiscount =totalPrice(0.3);
+
+console.log(withDiscount(100));
+console.log(withDiscount(280));
+console.log(withDiscount(354));
+
+
