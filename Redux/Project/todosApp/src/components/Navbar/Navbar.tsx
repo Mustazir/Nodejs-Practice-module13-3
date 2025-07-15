@@ -1,13 +1,19 @@
+import { Link } from "react-router";
+import { ModeToggle } from "../mode-toggole";
 
 
 
 const Navbar = () => {
     return (
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-center">Todo App</h1>
+      <nav className="max-w-7xl mx-auto px-4 align-center items-center gap-2 sm:px-6 lg:px-8 flex mt-3">
         
-
-      </nav>
+        <div className="max-w-7xl mx-auto px-4 align-center items-center gap-2 sm:px-6 lg:px-8 flex ">
+          <p className="text-3xl font-bold text-center">Todo App</p>
+        <Link to="/todos">task</Link>
+        <Link to="/todos">Users</Link>
+          </div>
+          <ModeToggle/>
+      </nav>  
     );
 };
 
