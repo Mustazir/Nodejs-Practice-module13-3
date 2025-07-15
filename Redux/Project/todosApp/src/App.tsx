@@ -1,15 +1,11 @@
-import { Button } from "./components/ui/button"
-
-
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-
-
   return (
     <>
-      <Button>Hey</Button>
+      <Navbar />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
