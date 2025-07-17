@@ -6,7 +6,7 @@ import taskSlice from './tasks/taskSlice';
 export const store = configureStore({
     reducer: {
      counter :counterSlice,
-     tasks :taskSlice
+     todos :taskSlice
     }
 })
 

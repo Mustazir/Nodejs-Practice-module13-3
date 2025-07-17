@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from './../App';
+import Tasks from "@/Pages/tasks";
 
 
 const router=createBrowserRouter([
@@ -13,7 +14,7 @@ const router=createBrowserRouter([
             },
             {
                 path:'/todos',
-                element:<h1>Todos</h1>
+                element:<Tasks/>
             }
         ]
     }
