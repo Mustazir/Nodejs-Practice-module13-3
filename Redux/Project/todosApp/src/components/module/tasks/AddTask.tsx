@@ -23,19 +23,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { addTask } from "@/redux/tasks/taskSlice";
+import type { Itasks } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 export function AddTask() {
   const form = useForm();
   const dispatch=useDispatch();
     
-  const onSubmit = (data) => {
+  /*
+
+  -----------we can normally use this ,, but here we can use another ------------
+
+  const onSubmit = (data) => {   
+   dispatch(addTask(data))  its use for normal 
+  */
+
+
+   
+  const onSubmit :SubmitHandler<FieldValues> = (data) => {
+  
     
-    console.log(data);
-    dispatch(addTask(data))
+    // dispatch(addTask(data))  its use for normal 
+
+
+        dispatch(addTask(data as Itasks))
+
   };
   return (
     <Dialog>
