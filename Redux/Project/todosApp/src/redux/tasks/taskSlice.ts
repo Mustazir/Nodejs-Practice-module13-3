@@ -18,8 +18,12 @@ const taskSlice= createSlice({
         reducers:{
             addTask:(state,action:PayloadAction<Itasks>)=>{
 
-                // const id=uuidv4()
-                state.tasks.push(action.payload)
+                
+                const taskdata={
+                    ...action.payload,
+                    id:uuidv4()
+                }
+                state.tasks.push(taskdata)
 
 
             }

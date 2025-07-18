@@ -52,7 +52,7 @@ export function AddTask() {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
-                name="Title"
+                name="title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Title</FormLabel>
@@ -64,7 +64,7 @@ export function AddTask() {
               />
               <FormField
                 control={form.control}
-                name="Description"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
@@ -76,7 +76,7 @@ export function AddTask() {
               />
               <FormField
                 control={form.control}
-                name="Priority"
+                name="priority"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Priority</FormLabel>
@@ -107,7 +107,7 @@ export function AddTask() {
               />
               <FormField
           control={form.control}
-          name="Due Date"
+          name="dueDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Due Date</FormLabel>
