@@ -14,7 +14,7 @@ const initialState  : InitialState ={
         description :"lorem sjadhs sajdkh",
         dueDate: "2025-01",
         isCompleted: false,
-        priority: "HIGH"
+        priority: "LOW"
     },
         {
         id: "aaaasadsadsad",
