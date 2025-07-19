@@ -29,21 +29,31 @@ const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<Itasks>) => {
+    addTask: (state, action: PayloadAction<DraftTask>) => {
       const taskdata = createtask(action.payload);
       state.tasks.push(taskdata);
     },
-    toggoleCompletedTask: (state,action:PayloadAction<string>)=>{
-
-      state.tasks.forEach((task)=>task.id===action.payload ? task.isCompleted= !task.isCompleted : task)
-
+    toggoleCompletedTask: (state, action: PayloadAction<string>) => {
+      state.tasks.forEach((task) =>
+        task.id === action.payload
+          ? (task.isCompleted = !task.isCompleted)
+          : task
+      );
     },
-    deleteTask: (state,action:PayloadAction<string>)=>{
-      state.tasks= state.tasks.filter((task)=>task.id!== action.payload) //here the logic means which task select to delete with out this task then filter and show or store all task in the container
-
-    }
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload); //here the logic means which task select to delete with out this task then filter and show or store all task in the container
+    },
+    updateTask: (
+      state,
+      action: PayloadAction<{ id: string; updatedData: Partial<Itasks> }>
+    ) => {
+      const { id, updatedData } = action.payload;
+      const index = state.tasks.findIndex((task) => task.id === id);
+      if (index !== -1) {
+        state.tasks[index] = { ...state.tasks[index], ...updatedData };
+      }
+    },
   },
-  
 });
 
 // normally use this its easier
@@ -67,7 +77,8 @@ const taskSlice= createSlice({
 })
 */
 
-export const { addTask,toggoleCompletedTask,deleteTask } = taskSlice.actions;
+export const { addTask, toggoleCompletedTask, deleteTask, updateTask } =
+  taskSlice.actions;
 
 export const selectTask = (state: RootState) => {
   return state.todos.tasks;

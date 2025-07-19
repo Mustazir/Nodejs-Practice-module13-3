@@ -6,6 +6,7 @@ import { deleteTask, toggoleCompletedTask } from "@/redux/tasks/taskSlice";
 import type { Itasks } from "@/types";
 
 import { Trash2 } from "lucide-react";
+import { UpdateTask } from "./updateTask";
 
 interface IProps {
   task: Itasks;
@@ -36,6 +37,8 @@ export default function TaskCard({ task }: IProps) {
       </div>
 
       <p className="mt-5">{task.description}</p>
+     <UpdateTask task={task} />
+
     </div>
   );
 }
