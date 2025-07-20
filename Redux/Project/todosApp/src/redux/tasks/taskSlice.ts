@@ -17,6 +17,7 @@ const initialState: InitialState = {
       dueDate: "2025-07-22T18:00:00.000Z",
     },
   ],
+  filter:"all",
 };
 
 type DraftTask = Pick<Itasks, "title" | "description" | "dueDate" | "priority">;
@@ -40,6 +41,9 @@ const taskSlice = createSlice({
           : task
       );
     },
+    updateFilter:(state,action:PayloadAction<"All"|"LOW"|"MEDIUM"|"HIGH" >)=>{
+    state.filter
+  },
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload); //here the logic means which task select to delete with out this task then filter and show or store all task in the container
     },
