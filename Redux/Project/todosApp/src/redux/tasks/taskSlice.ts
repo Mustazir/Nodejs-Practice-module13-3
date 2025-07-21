@@ -93,10 +93,28 @@ const taskSlice= createSlice({
 })
 */
 
-export const { addTask, toggoleCompletedTask, deleteTask, updateTask } =
+export const { addTask, toggoleCompletedTask, deleteTask, updateTask,filterTask } =
   taskSlice.actions;
 
 export const selectTask = (state: RootState) => {
+  const filter = state.todos.filter;
+
+  if(filter=== "LOW"){
+    return state.todos.tasks.filter((task) => task.priority === "LOW");
+  }
+  if(filter=== "MEDIUM"){
+    return state.todos.tasks.filter((task) => task.priority === "MEDIUM");
+  }
+  if(filter=== "HIGH"){
+    return state.todos.tasks.filter((task) => task.priority === "HIGH");
+  }
+  else{
+    return state.todos.tasks; 
+  }
+
+
+};
+export const selectFilter = (state: RootState) => {
   return state.todos.tasks;
 };
 
