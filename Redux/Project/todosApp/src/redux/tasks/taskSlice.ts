@@ -4,6 +4,7 @@ import type { RootState } from "../store";
 // import { v4 as uuidv4 } from "uuid";
 interface InitialState {
   tasks: Itasks[];
+  filter :"ALL" | "LOW"|"MEDIUM"|"HIGH";
 }
 
 const initialState: InitialState = {
@@ -17,7 +18,7 @@ const initialState: InitialState = {
       dueDate: "2025-07-22T18:00:00.000Z",
     },
   ],
-  filter:"all",
+  filter: "ALL",
 };
 
 type DraftTask = Pick<Itasks, "title" | "description" | "dueDate" | "priority">;
@@ -41,9 +42,20 @@ const taskSlice = createSlice({
           : task
       );
     },
-    updateFilter:(state,action:PayloadAction<"All"|"LOW"|"MEDIUM"|"HIGH" >)=>{
-    state.filter
-  },
+    filterTask: (state,action : PayloadAction<"ALL" | "LOW" | "MEDIUM" | "HIGH">) => {
+      state.filter = action.payload;
+    },
+    // filterTask: (state, action: PayloadAction<"ALL" | "LOW" | "MEDIUM" | "HIGH">) => {
+    //   state.filter = action.payload;
+    //   const filteredTasks = state.tasks.filter((task) => {
+    //     if (action.payload === "ALL") {
+    //       return true;
+    //     } else {
+    //       return task.priority === action.payload;
+    //     }
+    //   });
+
+    
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload); //here the logic means which task select to delete with out this task then filter and show or store all task in the container
     },
