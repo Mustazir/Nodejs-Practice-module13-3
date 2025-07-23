@@ -1,6 +1,7 @@
 import { AddUser } from "@/components/module/users/AddUser";
 import { useAppSelector } from "@/redux/hook";
 import { selectUsers } from "@/redux/users/userSlice";
+import { UserCard } from '@/components/module/users/UserCard';
 
 export default function Users() {
   const users = useAppSelector(selectUsers);
