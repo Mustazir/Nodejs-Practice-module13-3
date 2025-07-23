@@ -6,7 +6,8 @@ import { deleteTask, toggoleCompletedTask } from "@/redux/tasks/taskSlice";
 import type { Itasks } from "@/types";
 
 import { Trash2 } from "lucide-react";
-import { UpdateTask } from "./updateTask";
+import { UpdateTask } from "./UpdateTask";
+
 
 interface IProps {
   task: Itasks;
