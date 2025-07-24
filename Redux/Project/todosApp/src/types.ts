@@ -6,3 +6,9 @@ export interface Itasks {
   isCompleted: boolean;
   priority:"ALL"| "HIGH" | "MEDIUM" | "LOW";
 }
+
+export interface IUsers{
+  id: string;
+  name: string;
+
+}
