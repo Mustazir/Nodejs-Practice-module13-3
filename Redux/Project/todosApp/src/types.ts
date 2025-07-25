@@ -4,7 +4,8 @@ export interface Itasks {
   description: string;
   dueDate: string;
   isCompleted: boolean;
-  priority:"ALL"| "HIGH" | "MEDIUM" | "LOW";
+  priority: "ALL" | "HIGH" | "MEDIUM" | "LOW";
+  assignedTo: string;
 }
 
 export interface IUsers{
