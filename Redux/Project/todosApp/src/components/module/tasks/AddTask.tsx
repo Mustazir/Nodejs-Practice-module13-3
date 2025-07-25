@@ -28,6 +28,7 @@ import { selectUsers } from "@/redux/users/userSlice";
 import type { Itasks } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
@@ -35,6 +36,7 @@ export function AddTask() {
   const form = useForm();
   const dispatch=useDispatch();
   const users =useAppSelector(selectUsers)
+  const [open, setOpen] = useState(false);
     
   /*
 
@@ -53,10 +55,12 @@ export function AddTask() {
 
 
         dispatch(addTask(data as Itasks))
+    form.reset();
+    setOpen(false); // Close the dialog after adding the task
 
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
           <Button>Add Task</Button>

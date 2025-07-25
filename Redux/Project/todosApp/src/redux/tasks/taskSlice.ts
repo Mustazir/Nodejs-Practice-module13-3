@@ -1,6 +1,7 @@
 import type { Itasks } from "@/types";
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
+import { deleteUser } from "../users/userSlice";
 // import { v4 as uuidv4 } from "uuid";
 interface InitialState {
   tasks: Itasks[];
@@ -71,6 +72,17 @@ const taskSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder)=>{
+   builder.addCase(deleteUser, (state, action) => {
+  state.tasks.forEach((task) => {
+    if (task.assignedTo === action.payload) {
+      task.assignedTo = ""; // temporary fix to avoid type error
+    }
+  });
+});
+
+
+  }
 });
 
 // normally use this its easier
