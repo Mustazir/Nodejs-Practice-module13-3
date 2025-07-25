@@ -15,6 +15,7 @@ const initialState: InitialState = {
       title: "Git add",
       description: "Need to Add git hub",
       priority: "HIGH",
+      assignedTo: "user1",
       dueDate: "2025-07-22T18:00:00.000Z",
     },
   ],

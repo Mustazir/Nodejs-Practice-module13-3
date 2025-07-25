@@ -108,24 +108,17 @@ export function AddTask() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="LOW">
-                          LOW
-                        </SelectItem>
-                        <SelectItem value="MEDIUM">
-                          MEDIUM
-                        </SelectItem>
-                        <SelectItem value="HIGH">
-                          HIGH
-                        </SelectItem>
+                        <SelectItem value="LOW">LOW</SelectItem>
+                        <SelectItem value="MEDIUM">MEDIUM</SelectItem>
+                        <SelectItem value="HIGH">HIGH</SelectItem>
                       </SelectContent>
                     </Select>
-                    
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="Assigned To"
+                name="asignedTo"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Assigned To</FormLabel>
@@ -138,63 +131,58 @@ export function AddTask() {
                           <SelectValue placeholder="Select a Priority" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>{
-                       users.map((user) => (
-                        <SelectItem value={user.id} >
-                          {user.name}
-                        </SelectItem>
-                       ))}
+                      <SelectContent>
+                        {users.map((user) => (
+                          <SelectItem value={user.id}>{user.name}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
-                    
                   </FormItem>
                 )}
               />
               <FormField
-          control={form.control}
-          name="dueDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Due Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        " pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    
-                    captionLayout="dropdown"
-                  />
-                </PopoverContent>
-              </Popover>
-              
-            </FormItem>
-          )}
-        />
+                control={form.control}
+                name="dueDate"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Due Date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              " pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          captionLayout="dropdown"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </FormItem>
+                )}
+              />
 
               <DialogFooter className="mt-5">
                 <DialogClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button  type="submit">Save changes</Button>
+                <Button type="submit">Save changes</Button>
               </DialogFooter>
             </form>
           </Form>

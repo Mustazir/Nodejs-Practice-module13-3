@@ -7,7 +7,12 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  users: [],
+  users: [
+    {
+      id: "qhOz9LKJVlAUxWmpTz0P7",
+      name: "Mustazir Billah",
+    },
+  ],
 };
 
 type DraftUser = Pick<IUsers, "name">;
@@ -34,6 +39,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUser,deleteUser } = userSlice.actions;
+export const { addUser, deleteUser } = userSlice.actions;
 export const selectUsers = (state: RootState) => state.user.users;
 export default userSlice.reducer;
