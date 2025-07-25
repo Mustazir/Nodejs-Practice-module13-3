@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useAppDispatch } from "@/redux/hook";
+import { deleteUser } from "@/redux/users/userSlice";
 
 
 interface IUserCardProps {
@@ -16,7 +17,7 @@ export default function UserCard({ user }: IUserCardProps) {
       <Button
         variant="link"
         className="p-0 text-red-500"
-        // onClick={() => dispatch(deleteUser(user.id))}
+        onClick={() => dispatch(deleteUser(user.id))}
       >
         <Trash2 />
       </Button>
