@@ -118,7 +118,7 @@ export function AddTask() {
               />
               <FormField
                 control={form.control}
-                name="asignedTo"
+                name="assignedTo"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Assigned To</FormLabel>
@@ -133,7 +133,9 @@ export function AddTask() {
                       </FormControl>
                       <SelectContent>
                         {users.map((user) => (
-                          <SelectItem value={user.id}>{user.name}</SelectItem>
+                          <SelectItem value={user.id} key={user.id}>
+                            {user.name}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

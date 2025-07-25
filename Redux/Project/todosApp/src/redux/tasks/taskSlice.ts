@@ -22,7 +22,7 @@ const initialState: InitialState = {
   filter: "ALL",
 };
 
-type DraftTask = Pick<Itasks, "title" | "description" | "dueDate" | "priority">;
+type DraftTask = Pick<Itasks, "title" | "description" | "dueDate" | "priority"| "assignedTo">;
 
 const createtask = (taskData: DraftTask): Itasks => {
   return { id: nanoid(), isCompleted: false, ...taskData };

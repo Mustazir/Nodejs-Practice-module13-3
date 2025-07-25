@@ -54,7 +54,7 @@ export default function TaskCard({ task }: IProps) {
       <div className="flex  gap-5 items-center mt-4 justify-between">
         <div>
           <p className="">{task.description}</p>
-          <p>Assigned To -{task.assignedTo} </p>
+          <p>Assigned To -{assignedUser?assignedUser.name:"No one"} </p>
         </div>
         <UpdateTask task={task} />
       </div>
