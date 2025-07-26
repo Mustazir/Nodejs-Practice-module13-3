@@ -22,13 +22,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { updateTask } from "@/redux/tasks/taskSlice";
+
 
 import type { Itasks } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useForm, } from "react-hook-form";
 
 export function UpdateTask({ task }: { task: Itasks }) {
   const form = useForm({
@@ -40,7 +39,7 @@ export function UpdateTask({ task }: { task: Itasks }) {
   },
 });
 
-  const dispatch=useDispatch();
+
     
   /*
 
@@ -52,14 +51,7 @@ export function UpdateTask({ task }: { task: Itasks }) {
 
 
    
- const onSubmit: SubmitHandler<FieldValues> = (data) => {
-  dispatch(updateTask({
-    id: task.id,
-    updatedData: {
-      ...data,
-    },
-  }));
-};
+ 
 
   return (
     <Dialog>
@@ -73,7 +65,7 @@ export function UpdateTask({ task }: { task: Itasks }) {
             <DialogTitle>Add Task</DialogTitle>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form >
               <FormField
                 control={form.control}
                 name="title"

@@ -22,39 +22,26 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { useAppSelector } from "@/redux/hook";
-import { addTask } from "@/redux/tasks/taskSlice";
-import { selectUsers } from "@/redux/users/userSlice";
-import type { Itasks } from "@/types";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import { useDispatch } from "react-redux";
 
 export function AddTask() {
   const form = useForm();
-  const dispatch=useDispatch();
-  const users =useAppSelector(selectUsers)
+  
   const [open, setOpen] = useState(false);
     
-  /*
-
-  -----------we can normally use this ,, but here we can use another ------------
-
-  const onSubmit = (data) => {   
-   dispatch(addTask(data))  its use for normal 
-  */
 
 
    
   const onSubmit :SubmitHandler<FieldValues> = (data) => {
   
     
-    // dispatch(addTask(data))  its use for normal 
+    
 
 
-        dispatch(addTask(data as Itasks))
+        
     form.reset();
     setOpen(false); // Close the dialog after adding the task
 
@@ -136,11 +123,11 @@ export function AddTask() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {users.map((user) => (
+                        {/* {users.map((user) => (
                           <SelectItem value={user.id} key={user.id}>
                             {user.name}
                           </SelectItem>
-                        ))}
+                        ))} */}
                       </SelectContent>
                     </Select>
                   </FormItem>
